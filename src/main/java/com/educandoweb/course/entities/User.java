@@ -1,17 +1,27 @@
 package com.educandoweb.course.entities;
 
 import java.io.Serializable;
-// Serializable é uma interface que permite transformar o objeto em bytes,
-// útil para transmitir pela rede ou salvar em arquivos/cache.
-// O JPA costuma exigir que as entidades implementem Serializable.
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity 
+@Table(name = "tb/-user")
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	// Identificador único da versão da classe para serialização.
 	// É padrão colocar esse campo em classes que implementam Serializable.
 
+	@Id
+	@GeneratedValue(strategy= GenerationType.IDENTITY) 
+	//IDENTITY significa que o banco de dados vai cuidar de gerar o valor 
+	//(normalmente com AUTO_INCREMENT em bancos relacionais como MySQL ou SERIAL no PostgreSQL).
 	private Long id; // Atributos do usuário: id (identificador único)
+
 	private String name;
 	private String email;
 	private String phone;
