@@ -1,0 +1,18 @@
+--- Spring Boot API ---
+
+Programa para estudar o web service
+
+- criar projeto Spring boot java
+- IMPLEMENTAR MODELO DE DOMINIO
+- ESTRUTURAR CAMADA LOGICA: resource, service, repository.
+- Configurar o banco de dados de teste(H2)
+
+
+----- 1° commit -----
+Implementação da entitie User.java (representa a tabela do usuario)
+Implementação parcial (para testes) do resource UserResource (Recebe informalções e retornam respostas)
+
+----- 2° commit -----
+Atualizando o User - formatando JPA e a dependencia H2
+application-test.properties → configuração específica do perfil test (onde o banco H2 será definido).
+Entity: JPA mapping → mapear a classe User com @Entity, @Table, e atributos com @Id, @GeneratedValue, etc.

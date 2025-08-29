@@ -13,7 +13,12 @@ public class UserResource {
 
 	@GetMapping
 	public ResponseEntity<User> findAll() {
+		
 		User u = new User(1L, "Maria", "maria@gmail.com", "9999999", "12345");
+		// Cria manualmente um usuário fictício (não vem do banco ainda).
+		
 		return ResponseEntity.ok().body(u);
+		// Retorna resposta HTTP 200 OK, com o objeto User no corpo.
+        // O Spring converte automaticamente o User em JSON.
 	}
 }
