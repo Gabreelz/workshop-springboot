@@ -16,3 +16,10 @@ Implementação parcial (para testes) do resource UserResource (Recebe informal�
 Atualizando o User - formatando JPA e a dependencia H2
 application-test.properties → configuração específica do perfil test (onde o banco H2 será definido).
 Entity: JPA mapping → mapear a classe User com @Entity, @Table, e atributos com @Id, @GeneratedValue, etc.
+
+----- 3° commit -----
+✅ UserRepository extends JpaRepository<User, Long> (salva dados)
+✅ Classe TestConfig com @Configuration e @Profile("test")
+✅ @Autowired UserRepository para injetar a dependência
+✅ Criar objetos em memória (u1, u2)
+✅ Persistir no banco (saveAll)
