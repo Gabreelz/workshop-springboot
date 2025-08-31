@@ -23,3 +23,19 @@ Entity: JPA mapping → mapear a classe User com @Entity, @Table, e atributos co
 ✅ @Autowired UserRepository para injetar a dependência
 ✅ Criar objetos em memória (u1, u2)
 ✅ Persistir no banco (saveAll)
+
+----- 4° commit -----
+Service layer, component registration
+
+1 - Camada de Serviço: A camada de serviço é essencial para separar as responsabilidades dentro de 
+um framework com injeção de dependência, permitindo que o controlador se concentre na interação com 
+o usuário, enquanto as regras de negócio são geridas na camada de serviço.
+2 - Intermediação: Discutimos a importância de evitar que o controlador acesse diretamente o 
+repositório, pois isso poderia sobrecarregá-lo com regras de negócio. A camada de serviço atua 
+como intermediária facilitando operações mais complexas.
+3 - Implementação Prática: Criamos a classe UserService, que possui métodos para buscar todos os 
+usuários e um usuário específico por ID, conectando-a ao repositório de usuários através de 
+injeção de dependência.
+4 - Registro de Componentes: Aprendemos sobre o uso de anotações como @Component e @Service para 
+registrar nossas classes no mecanismo de injeção de dependência do framework, permitindo a injeção 
+automática.
