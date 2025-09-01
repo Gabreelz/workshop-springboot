@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.educandoweb.course.enums.OrderStatus;
+
 @Entity
 @Table(name = "tb_order") // Define o nome da tabela (evita conflito com palavra reservada ORDER)
 public class Order implements Serializable {
@@ -21,6 +23,9 @@ public class Order implements Serializable {
     private Long id;
     private Instant moment; // Data/hora do pedido em UTC
 
+    // Status do pedido será armazenado como Integer (código do enum)
+    private Integer orderStatus;
+
     @ManyToOne // Muitos pedidos para um cliente
     @JoinColumn(name = "client_id") // Nome da coluna de chave estrangeira
     private User client; // Cliente dono do pedido
@@ -29,10 +34,11 @@ public class Order implements Serializable {
     }
 
     // Construtor completo para facilitar criação de pedidos
-    public Order(Long id, Instant moment, User client){
+    public Order(Long id, Instant moment, OrderStatus orderStatus, User client){
         super();
         this.id = id;
         this.moment = moment;
+        setOrderStatus(orderStatus); // converte enum para Integer
         this.client = client;
     }
 
@@ -56,6 +62,18 @@ public class Order implements Serializable {
     public void setClient(User client){
         this.client = client;
     }
+
+    // Retorna o status em formato Enum (converte Integer para OrderStatus)
+    public OrderStatus getOrderStatus() {
+		return OrderStatus.valueOf(orderStatus);
+	}
+
+    // Define o status a partir do Enum (converte Enum para código Integer)
+	public void setOrderStatus(OrderStatus orderStatus) {
+		if (orderStatus != null) {
+			this.orderStatus = orderStatus.getCode();
+		}
+	}
 
     // hashCode: usado em coleções (HashSet, HashMap, etc.)
     @Override

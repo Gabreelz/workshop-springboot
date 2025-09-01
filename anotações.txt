@@ -55,3 +55,6 @@ OrderService
 
 OrderResource
 - Endpoints GET /orders, GET /orders/{id}, POST /orders
+
+----- 6° commit -----
+Enum OrderStatus
