@@ -39,3 +39,19 @@ injeção de dependência.
 4 - Registro de Componentes: Aprendemos sobre o uso de anotações como @Component e @Service para 
 registrar nossas classes no mecanismo de injeção de dependência do framework, permitindo a injeção 
 automática.
+
+------ 5° commit ------
+Order
+- Classe @Entity com id, moment, relações com User e OrderItem
+
+OrderRepository
+- Interface JpaRepository<Order, Long>
+
+OrderSeeder
+- CommandLineRunner para salvar pedidos iniciais
+
+OrderService
+- Métodos findAll, findById, save
+
+OrderResource
+- Endpoints GET /orders, GET /orders/{id}, POST /orders
