@@ -8,9 +8,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.educandoweb.course.entities.Categories;
 import com.educandoweb.course.entities.Order;
 import com.educandoweb.course.entities.User;
 import com.educandoweb.course.enums.OrderStatus;
+import com.educandoweb.course.repositories.CategoryRepository;
 import com.educandoweb.course.repositories.OrderRepository;
 import com.educandoweb.course.repositories.UserRepositories;
 
@@ -22,10 +24,18 @@ public class TestConfig implements CommandLineRunner {
     private UserRepositories userRepositories;
 
     @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
     private OrderRepository orderRepository;
 
     @Override
     public void run(String... args) throws Exception {
+
+        Categories cat1 = new Categories(null, "Electronics");
+		Categories cat2 = new Categories(null, "Books");
+		Categories cat3 = new Categories(null, "Computers");
+
         User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
         User u2 = new User(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
         
@@ -36,5 +46,6 @@ public class TestConfig implements CommandLineRunner {
     //salva no banco
     userRepositories.saveAll(Arrays.asList(u1, u2));
     orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+    categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
     }
 }
