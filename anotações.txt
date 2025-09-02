@@ -58,3 +58,9 @@ OrderResource
 
 ----- 6° commit -----
 Enum OrderStatus
+
+----- 7° Commit -----
+Category Entity
+
+----- 8° Commit -----
+Product Entity
