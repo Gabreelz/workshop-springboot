@@ -1,6 +1,5 @@
 package com.educandoweb.course.entities;
 
-import java.beans.Transient;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,34 +9,33 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
-@Entity
-@Table(name = "tb_product")
-public class Product implements Serializable{
-    private static final Long serialVersionUID = 1L;
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Entity // Indica que essa classe é uma entidade JPA (mapeada para o banco)
+@Table(name = "tb_product") // Define o nome da tabela no banco de dados
+public class Product implements Serializable {
+    private static final Long serialVersionUID = 1L; // Identificador para serialização (boa prática em entidades)
+
+    @Id // Marca o campo como chave primária
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Gera o id automaticamente (autoincremento)
     private Long id;
+
     private String name;
     private String description;
     private Double price;
     private String imgUrl;
 
-    @Transient
-    private Set<Categories> categories = new HashSet<>();
+    @Transient // Indica que esse campo NÃO será persistido no banco
+    private Set<Categories> categories = new HashSet<>(); // Relação com categorias (simulada por enquanto)
 
-    public Set<Categories> getCategories() {
-        return categories;
-    }
+    // Getters e Setters permitem acessar e modificar os atributos da classe
+    public Set<Categories> getCategories() { return categories; }
+    public void setCategories(Set<Categories> categories) { this.categories = categories; }
 
-    public void setCategories(Set<Categories> categories) {
-        this.categories = categories;
-    }
+    // Construtor vazio (necessário para o JPA)
+    public Product(){}
 
-    public Product(){
-    }
-
+    // Construtor com parâmetros
     public Product(Long id, String name, String description, Double price, String imgUrl){
         super();
         this.id = id;
@@ -47,39 +45,12 @@ public class Product implements Serializable{
         this.imgUrl = imgUrl;
     }
 
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public String getDescription() {
-        return description;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    public Double getPrice() {
-        return price;
-    }
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-    public String getImgUrl() {
-        return imgUrl;
-    }
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
+    // Métodos Getters e Setters
+    // (usados para encapsulamento e acesso controlado aos atributos)
 
     @Override
 	public int hashCode() {
+		// Gera um hash baseado no ID (bom para coleções como HashSet)
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -88,6 +59,7 @@ public class Product implements Serializable{
 
 	@Override
 	public boolean equals(Object obj) {
+		// Compara objetos pelo ID (dois produtos são iguais se tiverem o mesmo id)
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -102,5 +74,4 @@ public class Product implements Serializable{
 			return false;
 		return true;
 	}
-
 }
