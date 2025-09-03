@@ -8,8 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity // Indica que essa classe é uma entidade JPA (mapeada para o banco)
 @Table(name = "tb_product") // Define o nome da tabela no banco de dados
@@ -25,8 +27,15 @@ public class Product implements Serializable {
     private Double price;
     private String imgUrl;
 
-    @Transient // Indica que esse campo NÃO será persistido no banco
-    private Set<Categories> categories = new HashSet<>(); // Relação com categorias (simulada por enquanto)
+    // Define um relacionamento N:N (muitos-para-muitos) entre Product e Categories
+    @ManyToMany
+    // Cria uma tabela intermediária chamada "tb_product_category" para armazenar os vínculos
+    @JoinTable(name = "tb_product_category", // Nome da tabela que faz a ligação
+    joinColumns = @JoinColumn(name = "product_id"), // Define a chave estrangeira que referencia a tabela Product
+    inverseJoinColumns = @JoinColumn(name = "category_id")) // Define a chave estrangeira que referencia a tabela Categories
+    // Utiliza Set (em vez de List) para evitar registros duplicados
+    // HashSet garante que não haja duas associações iguais
+    private Set<Categories> categories = new HashSet<>();
 
     // Getters e Setters permitem acessar e modificar os atributos da classe
     public Set<Categories> getCategories() { return categories; }
