@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.educandoweb.course.Services.exceptions.ResourceNotFoundException;
 import com.educandoweb.course.entities.User;
 import com.educandoweb.course.repositories.UserRepositories;
 
@@ -28,10 +29,7 @@ public class UserServices {
         Optional<User> obj = repository.findById(id); 
         // repository.findById(id) retorna um Optional<User> (pode ou não conter valor)
         
-        return obj.get(); 
-        // obj.get() pega o valor dentro do Optional.
-        // ⚠️ Se o usuário não existir, dá erro (NoSuchElementException).
-        // Mais pra frente, podemos melhorar tratando o erro (ex: lançar exceção customizada).
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public User insert(User obj) {
