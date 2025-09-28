@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -67,6 +68,19 @@ public class UserResource {
     // Significa que a operação foi bem-sucedida, mas não há conteúdo para retornar
     return ResponseEntity.noContent().build();
 }
+
+    // Define que este método responde a requisições HTTP PUT para atualizar um usuário
+    // A URL deve conter o ID do usuário a ser atualizado, por exemplo: /users/5
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User obj) {
+    // Chama o serviço para atualizar o usuário no banco de dados
+    // O método 'update' do UserService geralmente busca o usuário pelo ID,
+    // atualiza os campos e salva novamente
+    obj = services.update(id, obj);
+    // Retorna uma resposta HTTP 200 OK com o objeto User atualizado no corpo
+    return ResponseEntity.ok().body(obj);
+}
+
 
 
 }
