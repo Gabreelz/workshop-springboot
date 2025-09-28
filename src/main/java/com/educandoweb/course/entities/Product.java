@@ -11,7 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity // Indica que essa classe é uma entidade JPA (mapeada para o banco)
 @Table(name = "tb_product") // Define o nome da tabela no banco de dados
@@ -27,6 +30,9 @@ public class Product implements Serializable {
     private Double price;
     private String imgUrl;
 
+    @OneToMany(mappedBy = "id.product")
+	private Set<OrderItem> items = new HashSet<>();
+
     // Define um relacionamento N:N (muitos-para-muitos) entre Product e Categories
     @ManyToMany
     // Cria uma tabela intermediária chamada "tb_product_category" para armazenar os vínculos
@@ -38,8 +44,12 @@ public class Product implements Serializable {
     private Set<Categories> categories = new HashSet<>();
 
     // Getters e Setters permitem acessar e modificar os atributos da classe
-    public Set<Categories> getCategories() { return categories; }
-    public void setCategories(Set<Categories> categories) { this.categories = categories; }
+    public Set<Categories> getCategories() { 
+        return categories; 
+    }
+    public void setCategories(Set<Categories> categories) { 
+        this.categories = categories; 
+    }
 
     // Construtor vazio (necessário para o JPA)
     public Product(){}
@@ -53,6 +63,55 @@ public class Product implements Serializable {
         this.price = price;
         this.imgUrl = imgUrl;
     }
+
+    public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
+	}
+
+    @JsonIgnore
+	public Set<Order> getOrders() {
+		Set<Order> set = new HashSet<>();
+		for (OrderItem x : items) {
+			set.add(x.getOrder());
+		}
+		return set;
+	}
 
     // Métodos Getters e Setters
     // (usados para encapsulamento e acesso controlado aos atributos)
