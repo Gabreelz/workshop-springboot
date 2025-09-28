@@ -33,4 +33,8 @@ public class UserServices {
         // ⚠️ Se o usuário não existir, dá erro (NoSuchElementException).
         // Mais pra frente, podemos melhorar tratando o erro (ex: lançar exceção customizada).
     }
+
+    public User insert(User obj) {
+		return repository.save(obj);
+	}
 }
